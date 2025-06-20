@@ -1045,6 +1045,9 @@ def main():
         for ii in range(progress_i):
             sys.stdout.write("#")
             sys.stdout.flush()
+        # I think this is rescaling the number of events according to an initial estimate of the centrality (&HSC)
+        # This is done because peripheral events are much more common, so it enables statistics for central events.
+        # I'm not sure how the rescaling is actually handled
         if (initial_condition_type in ('IPGlasma', 'IPGlasma+KoMPoST')
                 and parameter_dict.ipglasma_dict['type'] == 'minimumbias'):
             precent_local = float(iev)/float(n_jobs)
