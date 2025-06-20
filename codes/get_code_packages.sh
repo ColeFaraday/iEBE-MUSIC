@@ -8,7 +8,7 @@ git clone https://github.com/chunshen1987/3dMCGlauber 3dMCGlauber_code
 (cd 3dMCGlauber_code; git checkout 9af251c283e700a2abb9eb844a91da861136920f)
 rm -fr 3dMCGlauber_code/.git
 
-# download Cole's branch of IPGlasma
+# download Cole's fork of IPGlasma
 rm -fr ipglasma_code
 git clone https://github.com/ColeFaraday/ipglasma ipglasma_code
 (cd ipglasma_code; git checkout master) # can change to dev manually if needed
