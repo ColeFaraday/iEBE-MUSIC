@@ -29,7 +29,7 @@ known_afterburner_types = [
 
 support_cluster_list = [
     'nersc', 'wsugrid', "osg", "local", "guillimin", "mcgill",
-    'stampede2', "anvil"
+    'stampede2', "anvil", 'ucthpc'
 ]
 
 
@@ -77,6 +77,22 @@ def write_script_header(cluster, script, n_threads, event_id, walltime,
 #SBATCH -t {3:s}
 #SBATCH -e job.err
 #SBATCH -o job.log
+
+cd {4:s}
+""".format(event_id, n_threads, mem, walltime, working_folder))
+    elif cluster == "ucthpc":
+        script.write("""#!/usr/bin/env bash
+#SBATCH --job-name {0:s}
+#SBATCH --account=physics
+#SBATCH --partition=ada
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task={1:d}
+#SBATCH -t {3:s}
+#SBATCH -e job.err
+#SBATCH -o job.log
+
+module load python/miniconda3-py3.12
+source activate iEBE-MUSIC
 
 cd {4:s}
 """.format(event_id, n_threads, mem, walltime, working_folder))
