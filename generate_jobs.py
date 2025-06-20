@@ -1095,10 +1095,15 @@ def main():
                                       args.node_type.lower(), n_nodes,
                                       n_threads, int(n_jobs/n_nodes), walltime)
 
-    if cluster_name == "wsugrid" or cluster_name == "ucthpc":
+    if cluster_name == "wsugrid":
         shutil.copy(
             path.join(code_package_path,
                       'Cluster_supports/WSUgrid/submit_all_jobs.sh'), pwd)
+
+    if cluster_name == "ucthpc":
+        shutil.copy(
+            path.join(code_package_path,
+                      'Cluster_supports/UCT_HPC/submit_all_jobs.sh'), pwd)
 
     if cluster_name == "stampede2":
         nThreadsPerNode = 1
