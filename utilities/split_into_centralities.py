@@ -71,12 +71,19 @@ for icen in range(len(centrality_cut_list) - 1):
             shutil.rmtree(urqmd_directory_path)
         mkdir(urqmd_directory_path)
 
+    print("dN_dy_mb shape:", np.shape(dN_dy_mb))
+    print("dN_dy_mb length:", int(len(dN_dy_mb)))
+    print("centrality cut list: " , centrality_cut_list[icen]/100.)
+
     dN_dy_cut_high = (
         dN_dy_mb[int(len(dN_dy_mb)*centrality_cut_list[icen]/100.)])
     dN_dy_cut_low  = dN_dy_mb[
         min(len(dN_dy_mb)-1,
             int(len(dN_dy_mb)*centrality_cut_list[icen+1]/100.))
     ]
+
+    print("dNdy cut high: ", dN_dy_cut_high)
+    print("dNdy cut low: ", dN_dy_cut_low)
 
     selected_events_list = []
     for ifolder, event_name in enumerate(event_list):
