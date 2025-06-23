@@ -10,6 +10,8 @@ import argparse
 from math import ceil
 from glob import glob
 
+# I think that if you run min bias, this is not used
+# If you want to use this, I think it probably just weights, and you still calc. centrality later; however, for safety I won't use it
 centrality_list = [(0.00, 0.15, '0-5', 0.05), (0.15, 0.30, '5-10', 0.05),
                    (0.30, 0.45, '10-20', 0.10), (0.45, 0.55, '20-30', 0.10),
                    (0.55, 0.65, '30-40', 0.10), (0.65, 0.75, '40-50', 0.10),
