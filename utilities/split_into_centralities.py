@@ -71,7 +71,7 @@ for icen in range(len(centrality_cut_list) - 1):
             shutil.rmtree(urqmd_directory_path)
         mkdir(urqmd_directory_path)
 
-    print("dN_dy_mb shape:", np.shape(dN_dy_mb))
+    print("dN_dy_mb shape:", shape(dN_dy_mb))
     print("dN_dy_mb length:", int(len(dN_dy_mb)))
     print("centrality cut list: " , centrality_cut_list[icen]/100.)
 
