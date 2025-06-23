@@ -83,6 +83,7 @@ iss_dict = {
     'number_of_particles_needed': 50000,      # number of hadrons to sample
     'local_charge_conservation': 0,  # flag to impose local charge conservation
     'global_momentum_conservation': 0,  # flag to impose GMC
+    'include_spectators': 1, # include spectators for ZDC centrality selection
 }
 
 

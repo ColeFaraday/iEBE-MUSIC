@@ -91,6 +91,7 @@ for icen in range(len(centrality_cut_list) - 1):
     ]
     print("dNdy cut low: ", dN_dy_cut_low)
 
+    # group by multiplicity (9999 must stand for all particles / all charged particles? Looks like it is also grouped between -0.5 and 0.5 pseudorapidity. I guess it is difficult to not have a rapidity cut, especially for ipglasma)
     selected_events_list = []
     for ifolder, event_name in enumerate(event_list):
         file_name = "particle_9999_vndata_eta_-0.5_0.5.dat"
