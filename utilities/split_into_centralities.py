@@ -30,7 +30,9 @@ try:
     if path.exists(urqmd_folder):
         print("This run has UrQMD outputs!")
         urqmd_flag = True
-    if not hydro_surface_flag and not urqmd_flag: exit(0)
+    if not hydro_surface_flag and not urqmd_flag: 
+        print("No hydro or UrQMD outputs! Exiting.")
+        exit(0)
 except IndexError:
     print("Usage: {} results_folder".format(argv[0]))
     exit(1)
