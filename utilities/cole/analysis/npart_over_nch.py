@@ -44,7 +44,7 @@ with open(output_file, "w") as fout:
 
     for event_id in event_ids:
         group = h5_data[event_id]
-        id = int(event_id.strip("event_"))
+        id = int(re.search(r'\d+', event_id).group())
 
         try:
             ncoll_data = np.array(group[f"NcollList{id}.dat"])
