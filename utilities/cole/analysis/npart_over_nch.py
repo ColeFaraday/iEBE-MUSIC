@@ -7,6 +7,7 @@ import re
 
 kinematicCutsDict = {
     "ALICE": {"pTmin": 0.2, "pTmax": 3.0, "etamin": -0.8, "etamax": 0.8},
+    "ALICE_2015juo": {"pTmin": 0, "pTmax": 20, "etamin": -0.5, "etamax": 0.5},
     "CMS": {"pTmin": 0.3, "pTmax": 3.0, "etamin": -0.5, "etamax": 0.5},
     "ATLAS": {"pTmin": 0.5, "pTmax": 3.0, "etamin": -0.5, "etamax": 0.5},
 }
