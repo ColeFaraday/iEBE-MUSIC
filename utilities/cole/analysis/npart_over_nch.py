@@ -19,7 +19,7 @@ def help_message():
     sys.exit(1)
 
 def calculate_yield(pT_low, pT_high, data):
-    npT = 50
+    npT = 500
     pT_array = np.linspace(pT_low, pT_high, npT)
     dpT = pT_array[1] - pT_array[0]
     pT_event = data[:, 0]
