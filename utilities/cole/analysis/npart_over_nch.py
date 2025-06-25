@@ -50,7 +50,7 @@ for event_id in event_ids:
     try:
         vn_data = group["particle_9999_vndata_eta_-0.5_0.5.dat"]
         vn_data = np.nan_to_num(vn_data)
-        dN_dy_mb.append(-vn_data[0, 1])  # negative sign to match original script
+        dN_dy_mb.append(vn_data[0, 1])  # negative sign to match original script
         valid_event_ids.append(event_id)
     except KeyError:
         continue
