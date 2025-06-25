@@ -25,8 +25,8 @@ def calculate_yield_and_meanpTsq(pT_low, pT_high, data):
     pT_event = data[:, 0]
     dN_event = data[:, 1]
     dN_interp = np.exp(np.interp(pT_array, pT_event, np.log(dN_event + 1e-30)))
-    meanpTsq = (np.sum(dN_interp*pT_inte_array**2.)
-              / np.sum(dN_interp*pT_inte_array))
+    meanpTsq = (np.sum(dN_interp*pT_array**2.)
+              / np.sum(dN_interp*pT_array))
     N = 2. * np.pi * np.sum(dN_interp * pT_array) * dpT
     return N, meanpTsq
 
