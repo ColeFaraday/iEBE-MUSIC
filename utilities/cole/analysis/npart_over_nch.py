@@ -3,6 +3,7 @@
 import h5py
 import sys
 import numpy as np
+import re
 
 kinematicCutsDict = {
     "ALICE": {"pTmin": 0.2, "pTmax": 3.0, "etamin": -0.8, "etamax": 0.8},
