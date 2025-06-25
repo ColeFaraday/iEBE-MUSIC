@@ -5,6 +5,7 @@ import sys
 import os
 import numpy as np
 from glob import glob
+import re
 
 def help_message():
     print(f"Usage: {sys.argv[0]} database_file")
