@@ -76,7 +76,7 @@ for i, event_id in enumerate(sorted_event_ids):
             break
 
 with open(output_file, "w") as fout:
-    header = "EventID  centMin  centMax  Ncoll  Npart  " + "  ".join([f"Nch_{exp}" for exp in kinematicCutsDict]) + "\n"
+    header = "EventID  centMin  centMax  Ncoll  Npart  " + "  ".join([f"Nch_{exp}" for exp in kinematicCutsDict]) + "  ".join([f"MeanpTSquared_{exp}" for exp in kinematicCutsDict]) + "\n"
     fout.write(header)
 
     for event_id in event_ids:
