@@ -11,20 +11,16 @@ def help_message():
     print(f"Usage: {sys.argv[0]} database_file")
     sys.exit(1)
 
-def find_output_folder(event_id):
-    """
-    Look for the output folder corresponding to event_id
-    inside HYDRO_RESULTS/, either directly or in subfolders (for centrality binning)
-    """
-    pattern = f"HYDRO_RESULTS/*/hydro_results_{event_id}"
+def find_output_folder(event_id, base_dir):
+    pattern = os.path.join(base_dir, "HYDRO_RESULTS", "*", f"hydro_results_{event_id}")
     matches = glob(pattern)
     if matches:
         return matches[0]
-    
-    alt_pattern = f"HYDRO_RESULTS/hydro_results_{event_id}"
+
+    alt_pattern = os.path.join(base_dir, "HYDRO_RESULTS", f"hydro_results_{event_id}")
     if os.path.isdir(alt_pattern):
         return alt_pattern
-    
+
     return None
 
 if len(sys.argv) < 2:
@@ -47,7 +43,9 @@ with h5py.File(database_file, "r") as h5_data:
             print(f"Warning: missing data for event {id}: {e}")
             continue
 
-        output_dir = find_output_folder(id)
+        base_dir = os.path.dirname(os.path.abspath(database_file))
+        output_dir = find_output_folder(id, base_dir)
+
         if output_dir is None:
             print(f"Warning: could not find output folder for event {id}")
             continue
