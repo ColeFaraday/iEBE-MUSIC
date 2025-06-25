@@ -40,7 +40,7 @@ except OSError:
 event_ids = list(h5_data.keys())
 
 with open(output_file, "w") as fout:
-    header = "EventID  Ncoll  Npart  Ntemp  " + "  ".join([f"Nch_{exp}" for exp in kinematicCutsDict]) + "\n"
+    header = "EventID  Ncoll  Npart  " + "  ".join([f"Nch_{exp}" for exp in kinematicCutsDict]) + "\n"
     fout.write(header)
 
     for event_id in event_ids:
@@ -55,8 +55,7 @@ with open(output_file, "w") as fout:
             continue
 
         Ncoll = len(ncoll_data)
-        Npart = np.count_nonzero(npart_data[:, 2] == 1)
-        Ntemp = np.count_nonzero(npart_data[:, 3] == 1) # not sure which of these is really npart
+        Npart = np.count_nonzero(npart_data[:, 3] == 1) # [:, 2] would select protons; see IP-Glasma code
 
         Nch_list = []
         for exp, cuts in kinematicCutsDict.items():
@@ -68,7 +67,7 @@ with open(output_file, "w") as fout:
                 Nch = -1.0  # use -1.0 to flag missing data
             Nch_list.append(Nch)
 
-        row = f"{id:<7d}  {Ncoll:<6d}  {Npart:<6d}  {Ntemp:<6d}  " + "  ".join(f"{nch:.4e}" for nch in Nch_list) + "\n"
+        row = f"{id:<7d}  {Ncoll:<6d}  {Npart:<6d}  " + "  ".join(f"{nch:.4e}" for nch in Nch_list) + "\n"
         fout.write(row)
 
 h5_data.close()
