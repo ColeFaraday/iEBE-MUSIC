@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
-usage="$0 fromFolder toFolder"
+usage="$0 fromFolder toFolder [--destructive]"
 
 fromFolder=$1
 toFolder=$2
+destructive=false
+
+if [ "$3" == "--destructive" ]; then
+    destructive=true
+fi
 
 if [ -z "$fromFolder" ]
 then
@@ -19,7 +24,13 @@ fi
 fromFolder=${fromFolder%"/"}
 toFolder=${toFolder%"/"}
 
-echo "collecting events from " $fromFolder " to " $toFolder
+if [ "$destructive" = true ]; then
+    echo "collecting events from " $fromFolder " to " $toFolder " (destructive: moving files)"
+    move_or_copy=mv
+else
+    echo "collecting events from " $fromFolder " to " $toFolder " (non-destructive: copying files)"
+    move_or_copy=cp
+fi
 
 folderName=`echo $fromFolder | rev | cut -d "/" -f 1 | rev`
 target_folder=${toFolder}/${folderName}
@@ -74,12 +85,12 @@ do
         fi
         if [ -a ${eventsPath}/${iev}/${spvn_folder_name}*${event_id}.h5 ]; then
             if [ "$hydrostatus" = true ]; then
-                mv ${eventsPath}/${iev}/${hydro_folder_name}*${event_id} $target_hydro_folder
+                $move_or_copy -r ${eventsPath}/${iev}/${hydro_folder_name}*${event_id} $target_hydro_folder
             fi
             if [ "$urqmdstatus" = true ]; then
-                mv ${eventsPath}/${iev}/${UrQMD_file_name}*${event_id}.gz $target_urqmd_folder
+                $move_or_copy ${eventsPath}/${iev}/${UrQMD_file_name}*${event_id}.gz $target_urqmd_folder
             fi
-            mv ${eventsPath}/${iev}/${spvn_folder_name}*${event_id}.h5 $target_spvn_folder
+            $move_or_copy ${eventsPath}/${iev}/${spvn_folder_name}*${event_id}.h5 $target_spvn_folder
             ((collected_eventNum++))
         fi
         ((total_eventNum++))
@@ -89,8 +100,10 @@ done
 echo "Collected events number: " $collected_eventNum " out of " $total_eventNum
 
 if [ -f ${target_folder}/${folderName}.h5 ]; then
-    mv ${target_folder}/${folderName}.h5 ${target_spvn_folder}
+    $move_or_copy ${target_folder}/${folderName}.h5 ${target_spvn_folder}
 fi
 ./combine_multiple_hdf5.py ${target_spvn_folder}
-mv SPVN_RESULTS.h5 ${target_folder}/${folderName}.h5
-rm -fr $target_spvn_folder
+$move_or_copy SPVN_RESULTS.h5 ${target_folder}/${folderName}.h5
+if [ "$destructive" = true ]; then
+    rm -fr $target_spvn_folder
+fi
