@@ -59,7 +59,18 @@ do
             fi
         fi
         if [ -e $urqmd_file ]; then
-            urqmdstatus=true
+            # Find the URQMD folder (remove .gz and possible file extension)
+            urqmd_folder_path=$(dirname $urqmd_file)
+            if [ -d "$urqmd_folder_path" ]; then
+                if [ -z "$(ls -A "$urqmd_folder_path")" ]; then
+                    echo "URQMD folder $urqmd_folder_path is empty. Skipping this event."
+                    urqmdstatus=false
+                else
+                    urqmdstatus=true
+                fi
+            else
+                urqmdstatus=true
+            fi
         fi
         if [ -a ${eventsPath}/${iev}/${spvn_folder_name}*${event_id}.h5 ]; then
             if [ "$hydrostatus" = true ]; then
