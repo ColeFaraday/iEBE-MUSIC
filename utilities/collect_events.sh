@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Determine the directory where this script resides
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 usage="$0 fromFolder toFolder [--destructive]"
 
 fromFolder=$1
@@ -102,7 +105,7 @@ echo "Collected events number: " $collected_eventNum " out of " $total_eventNum
 if [ -f ${target_folder}/${folderName}.h5 ]; then
     $move_or_copy ${target_folder}/${folderName}.h5 ${target_spvn_folder}
 fi
-./combine_multiple_hdf5.py ${target_spvn_folder}
+"${SCRIPT_DIR}/combine_multiple_hdf5.py" ${target_spvn_folder}
 $move_or_copy SPVN_RESULTS.h5 ${target_folder}/${folderName}.h5
 if [ "$destructive" = true ]; then
     rm -fr $target_spvn_folder
