@@ -109,3 +109,8 @@ for fileName in fileList:
     if "Ncoll" in fileName:
         data = nan_to_num(h5_group.get(fileName))
         savetxt("{}".format(fileName), data, fmt="%.2f", header="x(fm)  y(fm)")
+
+# Output all attributes (usedParameters lines) to attributes.dat
+with open("attributes.dat", "w") as attr_file:
+    for key in sorted(h5_group.attrs, key=int):
+        attr_file.write(h5_group.attrs[key].decode('utf-8') + '\n')
