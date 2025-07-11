@@ -15,4 +15,5 @@ do
     mv "Qn_vectors_${eventid}.dat" "${evfolder}/$iev/"
     mv "particle_yield_and_meanpT_${eventid}.dat" "${evfolder}/$iev/"
     mv Ncoll* "${evfolder}/$iev/"
+    mv "attributes_${eventid}.dat" "${evfolder}/$iev/"
 done
