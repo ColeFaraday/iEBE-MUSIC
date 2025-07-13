@@ -87,10 +87,14 @@ for icen in range(len(centrality_cut_list) - 1):
         dN_dy_mb[int(len(dN_dy_mb)*centrality_cut_list[icen]/100.)])
     print("dNdy cut high: ", dN_dy_cut_high)
 
-    dN_dy_cut_low  = dN_dy_mb[
-        min(len(dN_dy_mb)-1,
-            int(len(dN_dy_mb)*centrality_cut_list[icen+1]/100.))
-    ]
+    # Handle the 100% boundary case specially
+    if centrality_cut_list[icen+1] == 100.:
+        dN_dy_cut_low = dN_dy_mb[-1]  # Use the lowest multiplicity event
+    else:
+        dN_dy_cut_low  = dN_dy_mb[
+            min(len(dN_dy_mb)-1,
+                int(len(dN_dy_mb)*centrality_cut_list[icen+1]/100.))
+        ]
     print("dNdy cut low: ", dN_dy_cut_low)
 
     # group by multiplicity (9999 must stand for all particles / all charged particles? Looks like it is also grouped between -0.5 and 0.5 pseudorapidity. I guess it is difficult to not have a rapidity cut, especially for ipglasma)
@@ -100,9 +104,15 @@ for icen in range(len(centrality_cut_list) - 1):
         event_group = hf.get(event_name)
         temp_data   = event_group.get(file_name)
         temp_data   = nan_to_num(temp_data)
-        if (temp_data[0, 1] > dN_dy_cut_low
-            and temp_data[0, 1] <= dN_dy_cut_high):
-            selected_events_list.append(event_name)
+        # For the 100% boundary case, include the lowest multiplicity event
+        if centrality_cut_list[icen+1] == 100.:
+            if (temp_data[0, 1] >= dN_dy_cut_low
+                and temp_data[0, 1] <= dN_dy_cut_high):
+                selected_events_list.append(event_name)
+        else:
+            if (temp_data[0, 1] > dN_dy_cut_low
+                and temp_data[0, 1] <= dN_dy_cut_high):
+                selected_events_list.append(event_name)
 
     nev = len(selected_events_list)
     print("analysis {}%-{}% nev = {}...".format(
