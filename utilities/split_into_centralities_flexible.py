@@ -118,13 +118,6 @@ def extract_centrality_variable(event_group, config):
         print(f"Error extracting centrality variable: {e}")
         return None
 
-def save_centrality_mapping(data_path, config_name, event_centrality_map):
-    """Save the centrality mapping to a JSON file"""
-    output_file = path.join(data_path, f"centrality_mapping_{config_name}.json")
-    with open(output_file, 'w') as f:
-        json.dump(event_centrality_map, f, indent=2)
-    print(f"Centrality mapping saved to: {output_file}")
-
 try:
     data_path = path.abspath(argv[1])
     
@@ -197,7 +190,7 @@ for config_key, config in centrality_configs.items():
         
     centrality_values = array(centrality_values)
     # Sort in descending order for centrality (highest values = most central)
-    sorted_indices = -argsort(-centrality_values)
+    sorted_indices = argsort(-centrality_values)  # Remove the extra negative!
     centrality_values_sorted = centrality_values[sorted_indices]
     valid_events_sorted = [valid_events[i] for i in sorted_indices]
 
@@ -245,7 +238,7 @@ for config_key, config in centrality_configs.items():
         for event_name in selected_events_list:
             event_centrality_map[centrality_bin_name][event_name] = {
                 "centrality_range": [centrality_cut_list[icen]/100.0, centrality_cut_list[icen+1]/100.0],
-                "centrality_value": float(centrality_values_sorted[valid_events_sorted.index(event_name)])
+                "centrality_value": float(centrality_values_sorted[valid_events_sorted.index(event_name)])  # Keep positive
             }
 
         nev = len(selected_events_list)
@@ -320,8 +313,8 @@ with open(summary_file, 'w') as f:
         "mappings": all_centrality_mappings
     }, f, indent=2)
 print(f"Summary mapping file saved to: {summary_file}")
-
-hf.close()
-print(f"\nCentrality classification complete!")
-print(f"Physical organization: {physical_config['name']}")
-print(f"Generated mappings for {len(all_centrality_mappings)} configurations.")
+with open(summary_file, 'w') as f:
+    json.dump({
+        "physical_organization": physical_config_key,
+        "configurations": {key: config["description"] for key, config in centrality_configs.items()},
+        "mappings": all_centrality_mappingstrality_mappings)} configurations.")    }, f, indent=2)print(f"Summary mapping file saved to: {summary_file}")hf.close()print(f"\nCentrality classification complete!")print(f"Physical organization: {physical_config['name']}")print(f"Generated mappings for {len(all_centrality_mappings)} configurations.")
