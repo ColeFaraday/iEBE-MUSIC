@@ -11,6 +11,8 @@ from numpy import *
 import h5py
 import shutil
 
+min = __builtins__.min # fix for pollution of global namespace with numpy
+
 centrality_cut_list = [0., 5., 10., 20., 30., 40., 50.,
                        60., 70., 80., 90., 100.]
 try:
@@ -28,7 +30,9 @@ try:
     if path.exists(urqmd_folder):
         print("This run has UrQMD outputs!")
         urqmd_flag = True
-    if not hydro_surface_flag and not urqmd_flag: exit(0)
+    if not hydro_surface_flag and not urqmd_flag: 
+        print("No hydro or UrQMD outputs! Exiting.")
+        exit(0)
 except IndexError:
     print("Usage: {} results_folder".format(argv[0]))
     exit(1)
@@ -71,22 +75,44 @@ for icen in range(len(centrality_cut_list) - 1):
             shutil.rmtree(urqmd_directory_path)
         mkdir(urqmd_directory_path)
 
+    print("dN_dy_mb shape:", shape(dN_dy_mb))
+    print("dN_dy_mb length:", int(len(dN_dy_mb)))
+    print("centrality cut list: " , centrality_cut_list)
+    print("centrality cut list elem: " , centrality_cut_list[icen]/100.)
+    print("centrality cut list elem: " , centrality_cut_list[icen]/100.)
+    print("first entry: ", len(dN_dy_mb)-1)
+    print("second entry: ", int(len(dN_dy_mb)*centrality_cut_list[icen+1]/100.))
+
     dN_dy_cut_high = (
         dN_dy_mb[int(len(dN_dy_mb)*centrality_cut_list[icen]/100.)])
-    dN_dy_cut_low  = dN_dy_mb[
-        min(len(dN_dy_mb)-1,
-            int(len(dN_dy_mb)*centrality_cut_list[icen+1]/100.))
-    ]
+    print("dNdy cut high: ", dN_dy_cut_high)
 
+    # Handle the 100% boundary case specially
+    if centrality_cut_list[icen+1] == 100.:
+        dN_dy_cut_low = dN_dy_mb[-1]  # Use the lowest multiplicity event
+    else:
+        dN_dy_cut_low  = dN_dy_mb[
+            min(len(dN_dy_mb)-1,
+                int(len(dN_dy_mb)*centrality_cut_list[icen+1]/100.))
+        ]
+    print("dNdy cut low: ", dN_dy_cut_low)
+
+    # group by multiplicity (9999 must stand for all particles / all charged particles? Looks like it is also grouped between -0.5 and 0.5 pseudorapidity. I guess it is difficult to not have a rapidity cut, especially for ipglasma)
     selected_events_list = []
     for ifolder, event_name in enumerate(event_list):
         file_name = "particle_9999_vndata_eta_-0.5_0.5.dat"
         event_group = hf.get(event_name)
         temp_data   = event_group.get(file_name)
         temp_data   = nan_to_num(temp_data)
-        if (temp_data[0, 1] > dN_dy_cut_low
-            and temp_data[0, 1] <= dN_dy_cut_high):
-            selected_events_list.append(event_name)
+        # For the 100% boundary case, include the lowest multiplicity event
+        if centrality_cut_list[icen+1] == 100.:
+            if (temp_data[0, 1] >= dN_dy_cut_low
+                and temp_data[0, 1] <= dN_dy_cut_high):
+                selected_events_list.append(event_name)
+        else:
+            if (temp_data[0, 1] > dN_dy_cut_low
+                and temp_data[0, 1] <= dN_dy_cut_high):
+                selected_events_list.append(event_name)
 
     nev = len(selected_events_list)
     print("analysis {}%-{}% nev = {}...".format(

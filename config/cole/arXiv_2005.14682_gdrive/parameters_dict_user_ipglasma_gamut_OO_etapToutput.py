@@ -23,11 +23,12 @@ ipglasma_dict = {
     #'database_name_pattern': "/wsu/home/groups/maj-shen/IPGlasma_Qsnormfixed/AuAu200/AuAu200_C{}.h5",
     'type': "self",  # minimumbias or fixed
     'bmin': 0.,
-    'bmax': 15.,
-    'Projectile': "p",
-    'Target': "Pb",
-    'roots': 5020.,
-    'SigmaNN': 67.,
+    'bmax': 20.,
+    'lightNucleusOption': 2,
+    'Projectile': "O",
+    'Target': "O",
+    'roots': 5360.,
+    'SigmaNN': 69.,
     'useConstituentQuarkProton': 3,   # 0: round proton; 3: fluctuating proton
 }
 
@@ -83,7 +84,6 @@ iss_dict = {
     'number_of_particles_needed': 50000,      # number of hadrons to sample
     'local_charge_conservation': 0,  # flag to impose local charge conservation
     'global_momentum_conservation': 0,  # flag to impose GMC
-    # 'include_spectators': 1, # include spectators for ZDC centrality selection (not doing what I thought it would)
 }
 
 
@@ -94,5 +94,6 @@ hadronic_afterburner_toolkit_dict = {
     'flag_charge_dependence': 1,    # flag to compute charge dependence correlation
     'compute_corr_rap_dep': 0,      # flag to compute the rapidity dependent multi-particle correlation
     'resonance_weak_feed_down_flag': 0,  # include weak feed down contribution
+    'rapidityPTDistributionFlag': 1,      # Flag to output Qn vector in (pT, y) bins
+    'rapidity_distribution': 1,     # 1: output particle rapidity distribution 
 }
-
