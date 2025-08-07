@@ -313,8 +313,8 @@ with open(summary_file, 'w') as f:
         "mappings": all_centrality_mappings
     }, f, indent=2)
 print(f"Summary mapping file saved to: {summary_file}")
-with open(summary_file, 'w') as f:
-    json.dump({
-        "physical_organization": physical_config_key,
-        "configurations": {key: config["description"] for key, config in centrality_configs.items()},
-        "mappings": all_centrality_mappingstrality_mappings)} configurations.")    }, f, indent=2)print(f"Summary mapping file saved to: {summary_file}")hf.close()print(f"\nCentrality classification complete!")print(f"Physical organization: {physical_config['name']}")print(f"Generated mappings for {len(all_centrality_mappings)} configurations.")
+
+hf.close()
+print(f"\nCentrality classification complete!")
+print(f"Physical organization: {physical_config['name']}")
+print(f"Generated mappings for {len(all_centrality_mappings)} configurations.")
