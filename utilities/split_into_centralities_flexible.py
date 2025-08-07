@@ -283,11 +283,8 @@ for icen in range(len(centrality_cut_list) - 1):
 
 # Group events by centrality bin for physical organization
 events_by_bin = {}
-for event_name, event_info in physical_mapping.items():
-    bin_name = event_info["centrality_bin"]
-    if bin_name not in events_by_bin:
-        events_by_bin[bin_name] = []
-    events_by_bin[bin_name].append(event_name)
+for bin_name, events_dict in physical_mapping.items():
+    events_by_bin[bin_name] = list(events_dict.keys())
 
 # Move files to physical centrality folders
 for bin_name, selected_events_list in events_by_bin.items():
