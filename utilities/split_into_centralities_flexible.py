@@ -30,9 +30,9 @@ centrality_configs = {
     # },
     "ATLAS_FCal": {
         "name": "ATLAS FCal-like",
-        "file": "particle_9999_vndata_eta_3.1_4.9.dat",  # Forward region
-        "function": lambda data: -data[0, 1] * data[0, 2],  # ET in forward region
-        "description": "Forward calorimeter ET in 3.1 < eta < 4.9 (ATLAS FCal-like)"
+        "file": "particle_9999_dNdeta_pT_0.3_3.dat",  # Forward region
+        "function": lambda data: sum(data[(data[:, 0] >= 3.2) & (data[:, 0] <= 4.9), -2]),  # Integrate dET/dy over y ∈ [3.1, 4.9]
+        "description": "Forward calorimeter ET in 3.2 < eta < 4.9 and 0.3 <= pT <= 3 GeV (ATLAS centrality determination)"
     },
     "ALICE_V0A": {
         "name": "ALICE V0A-like",
