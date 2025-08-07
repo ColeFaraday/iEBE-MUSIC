@@ -50,6 +50,9 @@ for ievent, event_path in enumerate(EVENT_LIST):
         if gtemp2 != gtemp:
             print("Conflict in mergeing {0}, use {1}".format(gtemp, gtemp2))
         exist_group_keys.append(gtemp2)
+        print("going to run this verbatim command: \n"
+              "h5copy -i {0} -o {1}.h5 -s {2} -d {3}".format(
+                  event_path, RESULTS_NAME, gtemp, gtemp2))
         system('h5copy -i {0} -o {1}.h5 -s {2} -d {3}'.format(
             event_path, RESULTS_NAME, gtemp, gtemp2))
 
