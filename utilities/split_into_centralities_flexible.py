@@ -237,12 +237,11 @@ for config_key, config in centrality_configs.items():
                 if cent_val > cent_cut_low and cent_val <= cent_cut_high:
                     selected_events_list.append(event_name)
 
-        # Store mapping for this centrality bin
+        # Store events for this centrality bin
         for event_name in selected_events_list:
-            event_centrality_map[event_name] = {
-                "centrality_bin": centrality_bin_name,
-                "centrality_range": [centrality_cut_list[icen], centrality_cut_list[icen+1]],
-                "centrality_value": float(centrality_values_sorted[valid_events_sorted.index(event_name)])
+            event_centrality_map[centrality_bin_name][event_name] = {
+                "centrality_range": [centrality_cut_list[icen]/100.0, centrality_cut_list[icen+1]/100.0],
+                "centrality_value": -float(centrality_values_sorted[valid_events_sorted.index(event_name)])
             }
 
         nev = len(selected_events_list)
