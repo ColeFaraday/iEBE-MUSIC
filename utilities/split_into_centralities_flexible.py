@@ -14,6 +14,10 @@ import json
 
 min = __builtins__.min # fix for pollution of global namespace with numpy
 
+# Available files
+#
+#'NcollList0.dat', 'NgluonEstimators0.dat', 'NpartList0.dat', 'eccentricities_evo_ed_tau_0.4.dat', 'eccentricities_evo_ed_tau_0.45.dat', 'eccentricities_evo_ed_tau_0.55.dat', 'eccentricities_evo_ed_tau_0.65.dat', 'eccentricities_evo_eta_-0.5_0.5.dat', 'eccentricities_evo_nB_tau_0.4.dat', 'eccentricities_evo_nB_tau_0.45.dat', 'eccentricities_evo_nB_tau_0.55.dat', 'eccentricities_evo_nB_tau_0.65.dat', 'inverse_Reynolds_number_eta_-0.5_0.5.dat', 'meanpT_estimators_eta_-0.5_0.5.dat', 'meanpT_estimators_tau_0.4.dat', 'meanpT_estimators_tau_0.45.dat', 'meanpT_estimators_tau_0.55.dat', 'meanpT_estimators_tau_0.65.dat', 'momentum_anisotropy_eta_-0.5_0.5.dat', 'momentum_anisotropy_tau_0.4.dat', 'momentum_anisotropy_tau_0.45.dat', 'momentum_anisotropy_tau_0.55.dat', 'momentum_anisotropy_tau_0.65.dat', 'particle_-211_dNdy_pT_0.2_3.dat', 'particle_-211_vndata_diff_y_-0.5_0.5.dat', 'particle_-211_vndata_y_-0.5_0.5.dat', 'particle_-2212_dNdeta_pT_0.2_3.dat', 'particle_-2212_dNdy_pT_0.2_3.dat', 'particle_-2212_vndata_diff_eta_-0.5_0.5.dat', 'particle_-2212_vndata_diff_y_-0.5_0.5.dat', 'particle_-2212_vndata_eta_-0.5_0.5.dat', 'particle_-2212_vndata_y_-0.5_0.5.dat', 'particle_-3122_dNdy_pT_0.2_3.dat', 'particle_-3122_vndata_diff_y_-0.5_0.5.dat', 'particle_-3122_vndata_y_-0.5_0.5.dat', 'particle_-321_dNdy_pT_0.2_3.dat', 'particle_-321_vndata_diff_y_-0.5_0.5.dat', 'particle_-321_vndata_y_-0.5_0.5.dat', 'particle_-3312_dNdy_pT_0.2_3.dat', 'particle_-3312_vndata_diff_y_-0.5_0.5.dat', 'particle_-3312_vndata_y_-0.5_0.5.dat', 'particle_-3334_dNdy_pT_0.2_3.dat', 'particle_-3334_vndata_diff_y_-0.5_0.5.dat', 'particle_-3334_vndata_y_-0.5_0.5.dat', 'particle_211_dNdy_pT_0.2_3.dat', 'particle_211_vndata_diff_y_-0.5_0.5.dat', 'particle_211_vndata_y_-0.5_0.5.dat', 'particle_2212_dNdeta_pT_0.2_3.dat', 'particle_2212_dNdy_pT_0.2_3.dat', 'particle_2212_vndata_diff_eta_-0.5_0.5.dat', 'particle_2212_vndata_diff_y_-0.5_0.5.dat', 'particle_2212_vndata_eta_-0.5_0.5.dat', 'particle_2212_vndata_y_-0.5_0.5.dat', 'particle_3122_dNdy_pT_0.2_3.dat', 'particle_3122_vndata_diff_y_-0.5_0.5.dat', 'particle_3122_vndata_y_-0.5_0.5.dat', 'particle_321_dNdy_pT_0.2_3.dat', 'particle_321_vndata_diff_y_-0.5_0.5.dat', 'particle_321_vndata_y_-0.5_0.5.dat', 'particle_3312_dNdy_pT_0.2_3.dat', 'particle_3312_vndata_diff_y_-0.5_0.5.dat', 'particle_3312_vndata_y_-0.5_0.5.dat', 'particle_3334_dNdy_pT_0.2_3.dat', 'particle_3334_vndata_diff_y_-0.5_0.5.dat', 'particle_3334_vndata_y_-0.5_0.5.dat', 'particle_333_dNdy_pT_0.2_3.dat', 'particle_333_vndata_diff_y_-0.5_0.5.dat', 'particle_333_vndata_y_-0.5_0.5.dat', 'particle_9999_Cmnk_eta_-1_1.dat', 'particle_9999_Cmnk_eta_-2_2.dat', 'particle_9999_Cmnk_os_eta_-1_1.dat', 'particle_9999_Cmnk_os_eta_-2_2.dat', 'particle_9999_Cmnk_ss_eta_-1_1.dat', 'particle_9999_Cmnk_ss_eta_-2_2.dat', 'particle_9999_Cn2_os_eta_-1_1.dat', 'particle_9999_Cn2_os_eta_-2_2.dat', 'particle_9999_Cn2_ss_eta_-1_1.dat', 'particle_9999_Cn2_ss_eta_-2_2.dat', 'particle_9999_Cn4_eta_-1_1.dat', 'particle_9999_Cn4_eta_-2_2.dat', 'particle_9999_SCmn_eta_-1_1.dat', 'particle_9999_SCmn_eta_-2_2.dat', 'particle_9999_dNdeta_pT_0.15_2.dat', 'particle_9999_dNdeta_pT_0.2_2.dat', 'particle_9999_dNdeta_pT_0.2_3.dat', 'particle_9999_dNdeta_pT_0.3_3.dat', 'particle_9999_dNdeta_pT_0.4_2.dat', 'particle_9999_dNdeta_pT_0.4_4.dat', 'particle_9999_dNdeta_pT_0.5_5.dat', 'particle_9999_vn2_eta_-1_1.dat', 'particle_9999_vn2_eta_-2_2.dat', 'particle_9999_vndata_diff_eta_-0.5_0.5.dat', 'particle_9999_vndata_diff_eta_-0.8_0.8.dat', 'particle_9999_vndata_diff_eta_-1_-0.5.dat', 'particle_9999_vndata_diff_eta_-1_1.dat', 'particle_9999_vndata_diff_eta_-2.4_2.4.dat', 'particle_9999_vndata_diff_eta_-2.5_-0.5.dat', 'particle_9999_vndata_diff_eta_-2.5_2.5.dat', 'particle_9999_vndata_diff_eta_-2_2.dat', 'particle_9999_vndata_diff_eta_-3.7_-1.7.dat', 'particle_9999_vndata_diff_eta_-3.9_-3.1.dat', 'particle_9999_vndata_diff_eta_-4.9_-3.1.dat', 'particle_9999_vndata_diff_eta_-5.1_-2.8.dat', 'particle_9999_vndata_diff_eta_0.5_1.dat', 'particle_9999_vndata_diff_eta_0.5_2.5.dat', 'particle_9999_vndata_diff_eta_1.7_3.7.dat', 'particle_9999_vndata_diff_eta_2.8_5.1.dat', 'particle_9999_vndata_diff_eta_3.1_3.9.dat', 'particle_9999_vndata_diff_eta_3.1_4.9.dat', 'particle_9999_vndata_eta_-0.5_0.5.dat', 'particle_9999_vndata_eta_-0.8_0.8.dat', 'particle_9999_vndata_eta_-1_-0.5.dat', 'particle_9999_vndata_eta_-1_1.dat', 'particle_9999_vndata_eta_-2.4_2.4.dat', 'particle_9999_vndata_eta_-2.5_-0.5.dat', 'particle_9999_vndata_eta_-2.5_2.5.dat', 'particle_9999_vndata_eta_-2_2.dat', 'particle_9999_vndata_eta_-3.7_-1.7.dat', 'particle_9999_vndata_eta_-3.9_-3.1.dat', 'particle_9999_vndata_eta_-4.9_-3.1.dat', 'particle_9999_vndata_eta_-5.1_-2.8.dat', 'particle_9999_vndata_eta_0.5_1.dat', 'particle_9999_vndata_eta_0.5_2.5.dat', 'particle_9999_vndata_eta_1.7_3.7.dat', 'particle_9999_vndata_eta_2.8_5.1.dat', 'particle_9999_vndata_eta_3.1_3.9.dat', 'particle_9999_vndata_eta_3.1_4.9.dat'
+
 # Flexible centrality categorization configurations
 centrality_configs = {
     "central_dNdy": {
@@ -22,16 +26,16 @@ centrality_configs = {
         "function": lambda data: data[0, 1],  # dN/dy from row 0, column 1
         "description": "Charged particle multiplicity in |eta| < 0.5"
     },
-    # "central_ET": {
-    #     "name": "Central ET",
-    #     "file": "particle_9999_vndata_eta_-0.5_0.5.dat",
-    #     "function": lambda data: -data[0, 1] * data[0, 2],  # dN/dy * <pT>
-    #     "description": "Mean transverse energy in |eta| < 0.5"
-    # },
+    "central_ET": {
+        "name": "Central ET",
+        "file": "particle_9999_dNdeta_pT_0.2_3.dat",  # Central region with pT cuts
+        "function": lambda data: sum(data[(abs(data[:, 0]) <= 0.5), -2]),  # Integrate dET/deta over |eta| <= 0.5
+        "description": "Central transverse energy in |eta| <= 0.5 and 0.2 <= pT <= 3 GeV"
+    },
     "ATLAS_FCal": {
         "name": "ATLAS FCal-like",
         "file": "particle_9999_dNdeta_pT_0.3_3.dat",  # Forward region
-        "function": lambda data: sum(data[(data[:, 0] >= 3.2) & (data[:, 0] <= 4.9), -2]),  # Integrate dET/dy over y ∈ [3.1, 4.9]
+        "function": lambda data: sum(data[(data[:, 0] >= 3.2) & (data[:, 0] <= 4.9), -2]),  # Integrate dET/deta over eta ∈ [3.2, 4.9]
         "description": "Forward calorimeter ET in 3.2 < eta < 4.9 and 0.3 <= pT <= 3 GeV (ATLAS centrality determination)"
     },
     "ALICE_V0A": {
@@ -43,45 +47,45 @@ centrality_configs = {
     "ALICE_V0C": {
         "name": "ALICE V0C-like", 
         "file": "particle_9999_vndata_eta_-3.7_-1.7.dat",  # V0C coverage
-        "function": lambda data: -data[0, 1],
+        "function": lambda data: data[0, 1],
         "description": "ALICE V0C-like detector coverage (-3.7 < eta < -1.7)"
     },
-    # "ALICE_V0_combined": {
-    #     "name": "ALICE V0 Combined",
-    #     "file": ["particle_9999_vndata_eta_2.8_5.1.dat", "particle_9999_vndata_eta_-3.7_-1.7.dat"],
-    #     "function": lambda data_list: sum(-d[0, 1] for d in data_list),  # Sum V0A + V0C
-    #     "description": "Combined ALICE V0A + V0C multiplicity"
-    # },
-    # "ALICE_FTOA": {
-    #     "name": "ALICE FTOA-like",
-    #     "file": "particle_9999_vndata_eta_3.1_4.9.dat",  # FTOA coverage
-    #     "function": lambda data: -data[0, 1],
-    #     "description": "ALICE FTOA-like detector coverage (3.1 < eta < 4.9)"
-    # },
-    # "ALICE_FTOC": {
-    #     "name": "ALICE FTOC-like",
-    #     "file": "particle_9999_vndata_eta_-3.9_-3.1.dat",  # FTOC coverage  
-    #     "function": lambda data: -data[0, 1],
-    #     "description": "ALICE FTOC-like detector coverage (-3.9 < eta < -3.1)"
-    # },
+    "ALICE_V0_combined": {
+        "name": "ALICE V0 Combined",
+        "file": ["particle_9999_vndata_eta_2.8_5.1.dat", "particle_9999_vndata_eta_-3.7_-1.7.dat"],
+        "function": lambda data_list: sum(d[0, 1] for d in data_list),  # Sum V0A + V0C
+        "description": "Combined ALICE V0A + V0C multiplicity"
+    },
+    "ALICE_FTOA": {
+        "name": "ALICE FTOA-like",
+        "file": "particle_9999_vndata_eta_3.1_4.9.dat",  # FTOA coverage
+        "function": lambda data: data[0, 1],
+        "description": "ALICE FTOA-like detector coverage (3.1 < eta < 4.9)"
+    },
+    "ALICE_FTOC": {
+        "name": "ALICE FTOC-like",
+        "file": "particle_9999_vndata_eta_-3.9_-3.1.dat",  # FTOC coverage  
+        "function": lambda data: data[0, 1],
+        "description": "ALICE FTOC-like detector coverage (-3.9 < eta < -3.1)"
+    },
     "wide_eta": {
         "name": "Wide Pseudorapidity",
         "file": "particle_9999_vndata_eta_-2.5_2.5.dat",
-        "function": lambda data: -data[0, 1],
+        "function": lambda data: data[0, 1],
         "description": "Wide pseudorapidity acceptance |eta| < 2.5"
     },
-    # "Ncoll": {
-    #     "name": "Number of Collisions",
-    #     "file": "NcollList500.dat",
-    #     "function": lambda data: data[0] if len(data.shape) == 1 else data[0, 0],
-    #     "description": "Number of binary nucleon-nucleon collisions"
-    # },
-    # "Npart": {
-    #     "name": "Number of Participants", 
-    #     "file": "NpartList500.dat",
-    #     "function": lambda data: data[0] if len(data.shape) == 1 else data[0, 0],
-    #     "description": "Number of participating nucleons"
-    # }
+    "Ncoll": {
+        "name": "Number of Collisions",
+        "file_pattern": "NcollList*.dat",
+        "function": lambda data: data.shape[0],  # Count number of collision points
+        "description": "Number of binary nucleon-nucleon collisions. Not used by any experiments (that I know of), but in PbPb is correlated with impact parameter, N_part etc."
+    },
+    "Npart": {
+        "name": "Number of Participants", 
+        "file_pattern": "NpartList*.dat",
+        "function": lambda data: sum(data[:, 3]),  # Count nucleons with collided flag = 1
+        "description": "Number of participating nucleons. Similar to ZDC-based centrality."
+    }
 }
 
 centrality_cut_list = [0., 5., 10., 20., 30., 40., 50.,
