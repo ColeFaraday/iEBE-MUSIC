@@ -169,12 +169,19 @@ try:
     if path.exists(hydro_folder):
         print("This run has hydro surface!")
         hydro_surface_flag = True
+    else:
+        print("HYDRO_RESULTS folder not found - will only generate centrality mappings without physical file organization.")
+        
     if path.exists(urqmd_folder):
         print("This run has UrQMD outputs!")
         urqmd_flag = True
+    else:
+        print("URQMD_RESULTS folder not found - will only generate centrality mappings without physical file organization.")
+        
     if not hydro_surface_flag and not urqmd_flag: 
-        print("No hydro or UrQMD outputs! Exiting.")
-        exit(0)
+        print("Neither HYDRO_RESULTS nor URQMD_RESULTS folders found. Will generate centrality mappings only.")
+    else:
+        print("Will perform physical file organization for available result types.")
         
 except IndexError:
     print(f"Usage: {argv[0]} results_folder [physical_centrality_config]")
@@ -271,53 +278,57 @@ print("\n" + "="*60)
 print("PHYSICAL FILE ORGANIZATION")
 print("="*60)
 
-# Now do the physical file organization using the specified configuration
-physical_mapping = all_centrality_mappings[physical_config_key]
+# Only do physical file organization if we have folders to organize
+if hydro_surface_flag or urqmd_flag:
+    # Now do the physical file organization using the specified configuration
+    physical_mapping = all_centrality_mappings[physical_config_key]
 
-# Create physical directory structure
-for icen in range(len(centrality_cut_list) - 1):
-    if centrality_cut_list[icen+1] < centrality_cut_list[icen]: 
-        continue
+    # Create physical directory structure
+    for icen in range(len(centrality_cut_list) - 1):
+        if centrality_cut_list[icen+1] < centrality_cut_list[icen]: 
+            continue
 
-    centrality_bin_name = f"C{int(centrality_cut_list[icen])}-{int(centrality_cut_list[icen + 1])}"
-    
-    hydro_directory_path = path.join(hydro_folder, centrality_bin_name)
-    urqmd_directory_path = path.join(urqmd_folder, centrality_bin_name)
+        centrality_bin_name = f"C{int(centrality_cut_list[icen])}-{int(centrality_cut_list[icen + 1])}"
+        
+        hydro_directory_path = path.join(hydro_folder, centrality_bin_name)
+        urqmd_directory_path = path.join(urqmd_folder, centrality_bin_name)
 
-    if hydro_surface_flag:
-        if path.exists(hydro_directory_path):
-            shutil.rmtree(hydro_directory_path)
-        mkdir(hydro_directory_path)
-
-    if urqmd_flag:
-        if path.exists(urqmd_directory_path):
-            shutil.rmtree(urqmd_directory_path)
-        mkdir(urqmd_directory_path)
-
-# Group events by centrality bin for physical organization
-events_by_bin = {}
-for bin_name, events_dict in physical_mapping.items():
-    events_by_bin[bin_name] = list(events_dict.keys())
-
-# Move files to physical centrality folders
-for bin_name, selected_events_list in events_by_bin.items():
-    hydro_directory_path = path.join(hydro_folder, bin_name)
-    urqmd_directory_path = path.join(urqmd_folder, bin_name)
-    
-    print(f"\nMoving {len(selected_events_list)} events to {bin_name}...")
-    
-    for ev_i_name in selected_events_list:
-        event_id = ev_i_name.split("_")[-1]
         if hydro_surface_flag:
-            hydro_event_name = "hydro_results_{}".format(event_id)
-            source_path = path.join(hydro_folder, hydro_event_name)
-            if path.exists(source_path):
-                shutil.move(source_path, hydro_directory_path)
+            if path.exists(hydro_directory_path):
+                shutil.rmtree(hydro_directory_path)
+            mkdir(hydro_directory_path)
+
         if urqmd_flag:
-            urqmd_event_name = "particle_list_{}.gz".format(event_id)
-            source_path = path.join(urqmd_folder, urqmd_event_name)
-            if path.exists(source_path):
-                shutil.move(source_path, urqmd_directory_path)
+            if path.exists(urqmd_directory_path):
+                shutil.rmtree(urqmd_directory_path)
+            mkdir(urqmd_directory_path)
+
+    # Group events by centrality bin for physical organization
+    events_by_bin = {}
+    for bin_name, events_dict in physical_mapping.items():
+        events_by_bin[bin_name] = list(events_dict.keys())
+
+    # Move files to physical centrality folders
+    for bin_name, selected_events_list in events_by_bin.items():
+        hydro_directory_path = path.join(hydro_folder, bin_name)
+        urqmd_directory_path = path.join(urqmd_folder, bin_name)
+        
+        print(f"\nMoving {len(selected_events_list)} events to {bin_name}...")
+        
+        for ev_i_name in selected_events_list:
+            event_id = ev_i_name.split("_")[-1]
+            if hydro_surface_flag:
+                hydro_event_name = "hydro_results_{}".format(event_id)
+                source_path = path.join(hydro_folder, hydro_event_name)
+                if path.exists(source_path):
+                    shutil.move(source_path, hydro_directory_path)
+            if urqmd_flag:
+                urqmd_event_name = "particle_list_{}.gz".format(event_id)
+                source_path = path.join(urqmd_folder, urqmd_event_name)
+                if path.exists(source_path):
+                    shutil.move(source_path, urqmd_directory_path)
+else:
+    print("No result folders found - skipping physical file organization.")
 
 # Save centrality mappings - only the summary file
 print("\n" + "="*60)
