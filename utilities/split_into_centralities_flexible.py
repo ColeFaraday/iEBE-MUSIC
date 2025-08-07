@@ -237,6 +237,10 @@ for config_key, config in centrality_configs.items():
                 if cent_val > cent_cut_low and cent_val <= cent_cut_high:
                     selected_events_list.append(event_name)
 
+        # Initialize centrality bin in mapping if not exists
+        if centrality_bin_name not in event_centrality_map:
+            event_centrality_map[centrality_bin_name] = {}
+
         # Store events for this centrality bin
         for event_name in selected_events_list:
             event_centrality_map[centrality_bin_name][event_name] = {
