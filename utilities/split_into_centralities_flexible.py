@@ -141,6 +141,13 @@ def extract_centrality_variable(event_group, config):
 try:
     data_path = path.abspath(argv[1])
     
+    # Check for --no-move flag
+    no_move_flag = False
+    if "--no-move" in argv:
+        no_move_flag = True
+        argv.remove("--no-move")
+        print("--no-move flag detected: will create directory structure but not move files")
+    
     # Check if a specific centrality config is requested for PHYSICAL file organization
     if len(argv) > 2:
         physical_config_key = argv[2]
@@ -184,8 +191,10 @@ try:
         print("Will perform physical file organization for available result types.")
         
 except IndexError:
-    print(f"Usage: {argv[0]} results_folder [physical_centrality_config]")
+    print(f"Usage: {argv[0]} results_folder [physical_centrality_config] [--no-move]")
     print(f"Available centrality configurations: {list(centrality_configs.keys())}")
+    print("Options:")
+    print("  --no-move    Create directory structure but don't move files")
     exit(1)
 
 hf = h5py.File(data_filename, "r")
@@ -313,20 +322,23 @@ if hydro_surface_flag or urqmd_flag:
         hydro_directory_path = path.join(hydro_folder, bin_name)
         urqmd_directory_path = path.join(urqmd_folder, bin_name)
         
-        print(f"\nMoving {len(selected_events_list)} events to {bin_name}...")
-        
-        for ev_i_name in selected_events_list:
-            event_id = ev_i_name.split("_")[-1]
-            if hydro_surface_flag:
-                hydro_event_name = "hydro_results_{}".format(event_id)
-                source_path = path.join(hydro_folder, hydro_event_name)
-                if path.exists(source_path):
-                    shutil.move(source_path, hydro_directory_path)
-            if urqmd_flag:
-                urqmd_event_name = "particle_list_{}.gz".format(event_id)
-                source_path = path.join(urqmd_folder, urqmd_event_name)
-                if path.exists(source_path):
-                    shutil.move(source_path, urqmd_directory_path)
+        if no_move_flag:
+            print(f"\n{bin_name}: {len(selected_events_list)} events (files not moved due to --no-move flag)")
+        else:
+            print(f"\nMoving {len(selected_events_list)} events to {bin_name}...")
+            
+            for ev_i_name in selected_events_list:
+                event_id = ev_i_name.split("_")[-1]
+                if hydro_surface_flag:
+                    hydro_event_name = "hydro_results_{}".format(event_id)
+                    source_path = path.join(hydro_folder, hydro_event_name)
+                    if path.exists(source_path):
+                        shutil.move(source_path, hydro_directory_path)
+                if urqmd_flag:
+                    urqmd_event_name = "particle_list_{}.gz".format(event_id)
+                    source_path = path.join(urqmd_folder, urqmd_event_name)
+                    if path.exists(source_path):
+                        shutil.move(source_path, urqmd_directory_path)
 else:
     print("No result folders found - skipping physical file organization.")
 
