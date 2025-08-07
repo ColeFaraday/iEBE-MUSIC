@@ -28,24 +28,24 @@ centrality_configs = {
     #     "function": lambda data: -data[0, 1] * data[0, 2],  # dN/dy * <pT>
     #     "description": "Mean transverse energy in |eta| < 0.5"
     # },
-    # "ATLAS_FCal": {
-    #     "name": "ATLAS FCal-like",
-    #     "file": "particle_9999_vndata_eta_3.1_4.9.dat",  # Forward region
-    #     "function": lambda data: -data[0, 1] * data[0, 2],  # ET in forward region
-    #     "description": "Forward calorimeter ET in 3.1 < eta < 4.9 (ATLAS FCal-like)"
-    # },
+    "ATLAS_FCal": {
+        "name": "ATLAS FCal-like",
+        "file": "particle_9999_vndata_eta_3.1_4.9.dat",  # Forward region
+        "function": lambda data: -data[0, 1] * data[0, 2],  # ET in forward region
+        "description": "Forward calorimeter ET in 3.1 < eta < 4.9 (ATLAS FCal-like)"
+    },
     "ALICE_V0A": {
         "name": "ALICE V0A-like",
         "file": "particle_9999_vndata_eta_2.8_5.1.dat",  # V0A coverage
         "function": lambda data: data[0, 1],
         "description": "ALICE V0A-like detector coverage (2.8 < eta < 5.1)"
-    }#,
-    # "ALICE_V0C": {
-    #     "name": "ALICE V0C-like", 
-    #     "file": "particle_9999_vndata_eta_-3.7_-1.7.dat",  # V0C coverage
-    #     "function": lambda data: -data[0, 1],
-    #     "description": "ALICE V0C-like detector coverage (-3.7 < eta < -1.7)"
-    # },
+    },
+    "ALICE_V0C": {
+        "name": "ALICE V0C-like", 
+        "file": "particle_9999_vndata_eta_-3.7_-1.7.dat",  # V0C coverage
+        "function": lambda data: -data[0, 1],
+        "description": "ALICE V0C-like detector coverage (-3.7 < eta < -1.7)"
+    },
     # "ALICE_V0_combined": {
     #     "name": "ALICE V0 Combined",
     #     "file": ["particle_9999_vndata_eta_2.8_5.1.dat", "particle_9999_vndata_eta_-3.7_-1.7.dat"],
@@ -64,12 +64,12 @@ centrality_configs = {
     #     "function": lambda data: -data[0, 1],
     #     "description": "ALICE FTOC-like detector coverage (-3.9 < eta < -3.1)"
     # },
-    # "wide_eta": {
-    #     "name": "Wide Pseudorapidity",
-    #     "file": "particle_9999_vndata_eta_-2.5_2.5.dat",
-    #     "function": lambda data: -data[0, 1],
-    #     "description": "Wide pseudorapidity acceptance |eta| < 2.5"
-    # },
+    "wide_eta": {
+        "name": "Wide Pseudorapidity",
+        "file": "particle_9999_vndata_eta_-2.5_2.5.dat",
+        "function": lambda data: -data[0, 1],
+        "description": "Wide pseudorapidity acceptance |eta| < 2.5"
+    },
     # "Ncoll": {
     #     "name": "Number of Collisions",
     #     "file": "NcollList500.dat",
