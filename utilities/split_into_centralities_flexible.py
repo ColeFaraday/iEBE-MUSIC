@@ -19,7 +19,7 @@ centrality_configs = {
     "central_dNdy": {
         "name": "Default dN/dy",
         "file": "particle_9999_vndata_eta_-0.5_0.5.dat",
-        "function": lambda data: -data[0, 1],  # dN/dy from row 0, column 1
+        "function": lambda data: data[0, 1],  # dN/dy from row 0, column 1
         "description": "Charged particle multiplicity in |eta| < 0.5"
     },
     # "central_ET": {
@@ -37,7 +37,7 @@ centrality_configs = {
     "ALICE_V0A": {
         "name": "ALICE V0A-like",
         "file": "particle_9999_vndata_eta_2.8_5.1.dat",  # V0A coverage
-        "function": lambda data: -data[0, 1],
+        "function": lambda data: data[0, 1],
         "description": "ALICE V0A-like detector coverage (2.8 < eta < 5.1)"
     }#,
     # "ALICE_V0C": {
@@ -197,7 +197,7 @@ for config_key, config in centrality_configs.items():
         
     centrality_values = array(centrality_values)
     # Sort in descending order for centrality (highest values = most central)
-    sorted_indices = argsort(-centrality_values)
+    sorted_indices = -argsort(-centrality_values)
     centrality_values_sorted = centrality_values[sorted_indices]
     valid_events_sorted = [valid_events[i] for i in sorted_indices]
 
@@ -245,7 +245,7 @@ for config_key, config in centrality_configs.items():
         for event_name in selected_events_list:
             event_centrality_map[centrality_bin_name][event_name] = {
                 "centrality_range": [centrality_cut_list[icen]/100.0, centrality_cut_list[icen+1]/100.0],
-                "centrality_value": -float(centrality_values_sorted[valid_events_sorted.index(event_name)])
+                "centrality_value": float(centrality_values_sorted[valid_events_sorted.index(event_name)])
             }
 
         nev = len(selected_events_list)
