@@ -53,7 +53,7 @@ centrality_configs = {
     "ALICE_V0_combined": {
         "name": "ALICE V0 Combined",
         "file": ["particle_9999_vndata_eta_2.8_5.1.dat", "particle_9999_vndata_eta_-3.7_-1.7.dat"],
-        "function": lambda data_list: sum(d[0, 1] for d in data_list),  # Sum V0A + V0C
+        "function": lambda data_list: sum([d[0, 1] for d in data_list]),  # Sum V0A + V0C - use list instead of generator
         "description": "Combined ALICE V0A + V0C multiplicity"
     },
     "ALICE_FTOA": {
@@ -76,13 +76,13 @@ centrality_configs = {
     },
     "Ncoll": {
         "name": "Number of Collisions",
-        "file_pattern": "NcollList*.dat",
+        "file": "NcollList*.dat",
         "function": lambda data: data.shape[0],  # Count number of collision points
         "description": "Number of binary nucleon-nucleon collisions. Not used by any experiments (that I know of), but in PbPb is correlated with impact parameter, N_part etc."
     },
     "Npart": {
         "name": "Number of Participants", 
-        "file_pattern": "NpartList*.dat",
+        "file": "NpartList*.dat",
         "function": lambda data: sum(data[:, 3]),  # Count nucleons with collided flag = 1
         "description": "Number of participating nucleons. Similar to ZDC-based centrality."
     }
@@ -94,11 +94,27 @@ centrality_cut_list = [0., 5., 10., 20., 30., 40., 50.,
 def extract_centrality_variable(event_group, config):
     """Extract the centrality variable from event data using the specified config"""
     try:
+        import fnmatch
         file_spec = config["file"]
         
-        # Handle single file case
+        # Handle single file case (including wildcards)
         if isinstance(file_spec, str):
-            temp_data = event_group.get(file_spec)
+            # Check if it contains wildcards
+            if '*' in file_spec or '?' in file_spec:
+                # Find files matching the pattern
+                available_files = list(event_group.keys())
+                matching_files = [f for f in available_files if fnmatch.fnmatch(f, file_spec)]
+                
+                if not matching_files:
+                    return None
+                
+                # Use the first matching file (assuming only one per event)
+                file_name = matching_files[0]
+                temp_data = event_group.get(file_name)
+            else:
+                # Regular file name
+                temp_data = event_group.get(file_spec)
+            
             if temp_data is None:
                 return None
             temp_data = nan_to_num(temp_data)
