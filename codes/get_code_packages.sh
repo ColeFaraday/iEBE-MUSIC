@@ -10,8 +10,8 @@ rm -fr 3dMCGlauber_code/.git
 
 # download Cole's fork of IPGlasma
 rm -fr ipglasma_code
-git clone https://github.com/ColeFaraday/ipglasma ipglasma_code
-(cd ipglasma_code; git checkout master) # can change to dev manually if needed
+git clone https://github.com/chunshen1987/ipglasma ipglasma_code
+(cd ipglasma_code; git checkout 1a7fcdc281775bfd1662dcb5fbf45d2570c2a2a7)
 rm -fr ipglasma_code/.git
 
 # download KoMPoST
