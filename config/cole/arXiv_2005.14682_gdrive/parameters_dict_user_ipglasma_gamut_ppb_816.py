@@ -93,6 +93,7 @@ hadronic_afterburner_toolkit_dict = {
     'compute_correlation': 1,       # flag to compute correlation function
     'flag_charge_dependence': 1,    # flag to compute charge dependence correlation
     'compute_corr_rap_dep': 0,      # flag to compute the rapidity dependent multi-particle correlation
+    'analyze_HBT': 1,                   # 0/1: flag to perform HBT analysis
     'resonance_weak_feed_down_flag': 0,  # include weak feed down contribution
 }
 
