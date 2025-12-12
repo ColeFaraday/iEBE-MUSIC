@@ -24,8 +24,8 @@ ipglasma_dict = {
     'type': "self",  # minimumbias or fixed
     'bmin': 0.,
     'bmax': 20.,
-    'Projectile': "He4",
-    'Target': "He4",
+    'Projectile': "He3",
+    'Target': "He3",
     'roots': 5360.,
     'nucleonPositionsFromFile': 1,
     'SigmaNN': 69.,

@@ -24,10 +24,9 @@ ipglasma_dict = {
     'type': "self",  # minimumbias or fixed
     'bmin': 0.,
     'bmax': 20.,
-    'Projectile': "He4",
-    'Target': "He4",
+    'Projectile': "Li6",
+    'Target': "Li6",
     'roots': 5360.,
-    'nucleonPositionsFromFile': 1,
     'SigmaNN': 69.,
     'useConstituentQuarkProton': 3,   # 0: round proton; 3: fluctuating proton
 }
