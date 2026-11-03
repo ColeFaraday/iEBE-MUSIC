@@ -28,6 +28,7 @@ ipglasma_dict = {
     'Target': "B10",
     'roots': 5360.,
     'SigmaNN': 69.,
+    'nucleonPositionsFromFile': 1,
     'useConstituentQuarkProton': 3,   # 0: round proton; 3: fluctuating proton
 }
 
