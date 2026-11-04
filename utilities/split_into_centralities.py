@@ -41,11 +41,11 @@ hf = h5py.File(data_filename, "r")
 event_list = list(hf.keys())
 dN_dy_mb = []
 for ifolder, event_name in enumerate(event_list):
-    file_name   = "particle_9999_vndata_eta_-0.5_0.5.dat"
+    file_name = "particle_9999_vndata_eta_-0.5_0.5.dat"
     event_group = hf.get(event_name)
     try:
-        temp_data   = event_group.get(file_name)
-        temp_data   = nan_to_num(temp_data)
+        temp_data = event_group.get(file_name)
+        temp_data = nan_to_num(temp_data)
         dN_dy_mb.append(-temp_data[0, 1])
     except:
         continue
@@ -53,17 +53,16 @@ dN_dy_mb = -sort(array(dN_dy_mb))
 print("total number of events: {}".format(len(dN_dy_mb)))
 
 for icen in range(len(centrality_cut_list) - 1):
-    if centrality_cut_list[icen+1] < centrality_cut_list[icen]: continue
+    if centrality_cut_list[icen + 1] < centrality_cut_list[icen]:
+        continue
 
     hydro_directory_path = path.join(
         hydro_folder, "C{0:d}-{1:d}".format(int(centrality_cut_list[icen]),
-                                            int(centrality_cut_list[icen + 1]))
-    )
+                                            int(centrality_cut_list[icen + 1])))
 
     urqmd_directory_path = path.join(
         urqmd_folder, "C{0:d}-{1:d}".format(int(centrality_cut_list[icen]),
-                                            int(centrality_cut_list[icen + 1]))
-    )
+                                            int(centrality_cut_list[icen + 1])))
 
     if hydro_surface_flag:
         if path.exists(hydro_directory_path):
@@ -115,8 +114,9 @@ for icen in range(len(centrality_cut_list) - 1):
                 selected_events_list.append(event_name)
 
     nev = len(selected_events_list)
-    print("analysis {}%-{}% nev = {}...".format(
-            centrality_cut_list[icen], centrality_cut_list[icen+1], nev))
+    print("analysis {}%-{}% nev = {}...".format(centrality_cut_list[icen],
+                                                centrality_cut_list[icen + 1],
+                                                nev))
     for ev_i_name in selected_events_list:
         event_id = ev_i_name.split("_")[-1]
         if hydro_surface_flag:
