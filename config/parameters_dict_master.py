@@ -93,7 +93,7 @@ ipglasma_dict = {
     'protonAnisotropy': 0,
     'roots': 200.,
     'usePseudoRapidity': 0,
-    'Rapidity': 0.,          # read by dilute_dense_kt
+    'Rapidity': 0.,          # read by kt_factorization
     'RapidityA': 0.,
     'RapidityB': 0.,
     'useFluctuatingx': 1,
@@ -137,7 +137,7 @@ ipglasma_dict = {
     'writeOutputs': 1,
     'writeEvolution': 0,
     'readInitialWilsonLines': 0,
-    'writeInitialWilsonLines': 0,   # dilute_dense_kt name
+    'writeInitialWilsonLines': 0,   # kt_factorization name
     'writeWilsonLines': 0,
     'writeOutputsToHDF5': 0,
     'writeEpsilonUHydro': 1,        # epsilon-u-Hydro for MUSIC
