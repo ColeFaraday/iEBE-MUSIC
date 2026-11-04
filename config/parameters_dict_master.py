@@ -66,6 +66,8 @@ ipglasma_dict = {
     'beta3': 0.0,
     'beta4': 0.0,
     'gamma': 0.0,
+    'dR_np': 0.0,            # neutron skin: R_n - R_p (fm)
+    'da_np': 0.0,            # neutron skin: a_n - a_p (fm)
     'force_dmin_flag': 1,    # flag to force d_min for deformed nuclei
     'd_min': 0.9,            # fm
     'c': 0.2,
@@ -98,6 +100,11 @@ ipglasma_dict = {
     'Target': "Au",
     'bmin': 0.,
     'bmax': 20.,
+    'rotateReactionPlane': 0,       # 1: random reaction-plane angle
+    'polariztionProjectile': 0,     # (spelled as in IP-Glasma)
+    'polariztionTarget': 0,
+    'polarizationProjectileJz': 0,
+    'polarizationTargetJz': 0,
     'lightNucleusOption': 1,
     'useFixedNpart': 0,
     'averageOverThisManyNuclei': 1,
@@ -114,7 +121,15 @@ ipglasma_dict = {
     'writeEvolution': 0,
     'readInitialWilsonLines': 0,
     'writeInitialWilsonLines': 0,
-    'writeOutputsToHDF5': 0
+    'writeOutputsToHDF5': 0,
+    'writeEpsilonUHydro': 1,        # epsilon-u-Hydro for MUSIC
+    'writeTmunuBinary': 0,          # 0: Tmunu as text (KoMPoST reads it)
+    'computeGluonMultiplicity': 1,
+    'crossSectionMode': 0,
+    'inelasticCriterion': 0,        # 0: T_p cut (inelasticTpMin)
+    'inelasticTpMin': -1.,
+    'hardSoftEstimator': 1,         # 1: tau = 0+ hard-soft estimate
+                                    #    (glasmaFree, hardSoftMap), then CYM
 }
 
 

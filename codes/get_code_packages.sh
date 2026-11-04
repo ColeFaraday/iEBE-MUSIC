@@ -11,7 +11,7 @@ rm -fr 3dMCGlauber_code/.git
 # download Cole's fork of IPGlasma
 rm -fr ipglasma_code
 git clone https://github.com/ColeFaraday/ipglasma ipglasma_code
-(cd ipglasma_code; git checkout master) # can change to dev manually if needed
+(cd ipglasma_code; git checkout dilute_dense_kt) # hard-soft estimator (hardSoftEstimator)
 rm -fr ipglasma_code/.git
 
 # download KoMPoST

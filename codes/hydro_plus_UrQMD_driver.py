@@ -58,8 +58,8 @@ def get_initial_condition(database, initial_type, iev, event_id, seed_add,
         ipglasma_local_folder = "ipglasma/ipglasma_results"
         res_path = path.join(path.abspath(final_results_folder),
                              "ipglasma_results_{}".format(event_id))
-        file_name = ("epsilon-u-Hydro-t{0:s}-{1}.dat".format(
-                                                time_stamp_str, event_id))
+        # IP-Glasma names the last time step TauHydro (since 2024)
+        file_name = "epsilon-u-Hydro-TauHydro-{}.dat".format(event_id)
         if "KoMPoST" in initial_type:
             file_name = ("Tmunu-t{0:s}-{1}.dat".format(time_stamp_str,
                                                        event_id))
@@ -460,17 +460,18 @@ def check_an_event_is_good(event_folder):
 def zip_results_into_hdf5(final_results_folder, event_id, para_dict):
     """This function combines all the results into hdf5"""
     results_name = "spvn_results_{}".format(event_id)
-    time_stamp = para_dict['time_stamp_str']
     initial_state_filelist1 = [
         'NcollList{}.dat'.format(event_id),
         'NpartList{}.dat'.format(event_id),
         'NpartdNdy-t0.6-{}.dat'.format(event_id),
         'NgluonEstimators{}.dat'.format(event_id),
         'usedParameters{}.dat'.format(event_id),
+        'glasmaFree{}.dat'.format(event_id),   # tau = 0+ hard-soft estimate
+        'hardSoftMap{}.dat'.format(event_id),  # where it is produced
     ]
     initial_state_filelist2 = [
         'epsilon-u-Hydro-t0.1-{}.dat'.format(event_id),
-        'epsilon-u-Hydro-t{0}-{1}.dat'.format(time_stamp, event_id),
+        'epsilon-u-Hydro-TauHydro-{}.dat'.format(event_id),
     ]
     glauber_filelist = ["strings_{}.dat".format(event_id),
                         "spectators_{}.dat".format(event_id),
